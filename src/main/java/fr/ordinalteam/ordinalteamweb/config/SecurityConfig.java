@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer.loginPage("/login");
                     httpSecurityFormLoginConfigurer.loginProcessingUrl("/perform_login");
-                    httpSecurityFormLoginConfigurer.defaultSuccessUrl("/home", true);
+                    httpSecurityFormLoginConfigurer.defaultSuccessUrl("/", true);
                     httpSecurityFormLoginConfigurer.failureUrl("/login?error=true");
                 })
                 .logout(httpSecurityLogoutConfigurer -> {

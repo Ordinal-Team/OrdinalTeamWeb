@@ -1,21 +1,22 @@
 package fr.ordinalteam.ordinalteamweb.service.impl;
 
+import fr.ordinalteam.ordinalteamweb.dto.Response;
 import fr.ordinalteam.ordinalteamweb.model.Role;
 import fr.ordinalteam.ordinalteamweb.model.RoleName;
 import fr.ordinalteam.ordinalteamweb.model.User;
 import fr.ordinalteam.ordinalteamweb.repository.RoleRepository;
 import fr.ordinalteam.ordinalteamweb.repository.UserRepository;
 import fr.ordinalteam.ordinalteamweb.service.UserService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     private final UserRepository userRepository;
@@ -60,5 +61,51 @@ public class UserServiceImpl implements UserService {
         final User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         user.setRoles(roles);
         return this.userRepository.save(user);
+    }
+
+    @Override
+    public Response registerUser(final String username, final String email, final String password, final String cPassword) {
+        final Response response = new Response();
+        if (!password.equals(cPassword)) {
+            response.setSuccess(false);
+            response.setErrorMessage("Passwords do not match.");
+            return response;
+        }
+
+        if (password.length() < 7) {
+            response.setSuccess(false);
+            response.setErrorMessage("Your password size must be higher than 7");
+            return response;
+        }
+
+        if (this.userRepository.findByUsername(username).isPresent()) {
+            response.setSuccess(false);
+            response.setErrorMessage("User already exists with the same name");
+            return response;
+        }
+
+        if (this.userRepository.findByEmail(email).isPresent()) {
+            response.setSuccess(false);
+            response.setErrorMessage("User already exists with the same email");
+            return response;
+        }
+
+        final User user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(this.passwordEncoder.encode(password));
+        final Set<Role> roles = new HashSet<>();
+        roles.add(this.roleRepository.findByName(RoleName.USER).orElseThrow(() -> new RuntimeException("Default role USER not found")));
+        user.setRoles(roles);
+        this.userRepository.save(user);
+        response.setSuccess(true);
+        return response;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        return this.userRepository.findByUsername(username)
+                .map(user -> new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>()))
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 }

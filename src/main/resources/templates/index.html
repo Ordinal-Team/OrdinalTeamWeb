@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/tailwind.css" rel="stylesheet">
     <title>OrdinalTeamWeb</title>
+    <style>
+        .dropdown-menu {
+            display: none;
+        }
+        .dropdown:hover .dropdown-menu,
+        .dropdown-menu:hover {
+            display: block;
+        }
+    </style>
 </head>
 <body class="bg-gray-900 text-white">
 <header class="bg-gray-800 p-4">
@@ -18,8 +27,22 @@
             <a href="#section2" class="text-white hover:text-gray-400">Implementation doc</a>
             <a href="#section3" class="text-white hover:text-gray-400">Plugin creation</a>
             <input type="text" placeholder="Search" class="px-2 py-1 rounded bg-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-gray-400">
-            <a href="/login" class="text-white hover:text-gray-400">Login</a>
-            <a href="/signup" class="ml-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">Sign Up</a>
+            <div class="relative dropdown" th:if="${username != null}">
+                <button class="flex items-center text-white hover:text-gray-400 focus:outline-none">
+                    <span th:text="${username}"></span>
+                    <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M5.292 7.292a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <div class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-2 z-20 dropdown-menu">
+                    <a href="/profile" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Profile</a>
+                    <a href="/perform_logout" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Logout</a>
+                </div>
+            </div>
+            <div th:if="${username == null}">
+                <a href="/login" class="text-white hover:text-gray-400">Login</a>
+                <a href="/signup" class="ml-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">Sign Up</a>
+            </div>
         </nav>
     </div>
 </header>
@@ -143,5 +166,31 @@ public class YourBot extends OrdinalBot {
         <p class="text-white">&copy; 2024 OrdinalTeamWeb. All rights reserved.</p>
     </div>
 </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const dropdown = document.querySelector('.dropdown');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+
+        dropdown.addEventListener('mouseenter', function () {
+            dropdownMenu.style.display = 'block';
+        });
+
+        dropdown.addEventListener('mouseleave', function () {
+            setTimeout(function () {
+                if (!dropdownMenu.matches(':hover')) {
+                    dropdownMenu.style.display = 'none';
+                }
+            }, 100);
+        });
+
+        dropdownMenu.addEventListener('mouseleave', function () {
+            dropdownMenu.style.display = 'none';
+        });
+
+        dropdownMenu.addEventListener('mouseenter', function () {
+            dropdownMenu.style.display = 'block';
+        });
+    });
+</script>
 </body>
 </html>

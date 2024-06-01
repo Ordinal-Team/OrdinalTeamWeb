@@ -1,5 +1,6 @@
 package fr.ordinalteam.ordinalteamweb.service;
 
+import fr.ordinalteam.ordinalteamweb.dto.Response;
 import fr.ordinalteam.ordinalteamweb.model.Role;
 import fr.ordinalteam.ordinalteamweb.model.User;
 
@@ -13,4 +14,6 @@ public interface UserService {
     List<User> findAllUsers();
     void deleteUser(final Long userId);
     User updateUserRoles(final Long userId, final Set<Role> roles);
+    Response registerUser(final String username, final String email, final String password, final String cPassword);
+
 }

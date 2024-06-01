@@ -39,11 +39,21 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Set<Role> initializeDefaultRoles() {
-        Set<Role> defaultRoles = new HashSet<>();
-        defaultRoles.add(new Role(RoleName.USER));
-        defaultRoles.add(new Role(RoleName.BOOSTER));
-        defaultRoles.add(new Role(RoleName.MODERATOR));
-        defaultRoles.add(new Role(RoleName.ADMINISTRATOR));
+        final Set<Role> defaultRoles = new HashSet<>();
+
+        if (!this.roleRepository.existsByName(RoleName.USER)) {
+            defaultRoles.add(new Role(RoleName.USER));
+        }
+        if (!this.roleRepository.existsByName(RoleName.BOOSTER)) {
+            defaultRoles.add(new Role(RoleName.BOOSTER));
+        }
+        if (!this.roleRepository.existsByName(RoleName.MODERATOR)) {
+            defaultRoles.add(new Role(RoleName.MODERATOR));
+        }
+        if (!this.roleRepository.existsByName(RoleName.ADMINISTRATOR)) {
+            defaultRoles.add(new Role(RoleName.ADMINISTRATOR));
+        }
+
         return new HashSet<>(roleRepository.saveAll(defaultRoles));
     }
 }
