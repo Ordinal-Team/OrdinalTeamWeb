@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <title>Admin Dashboard</title>
+</head>
+<body class="bg-gray-900 text-white">
+<header class="bg-gray-800 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <img src="/images/icon.png" alt="Logo" class="w-10 h-10 rounded-full">
+            <h1 class="text-4xl font-bold">Admin Dashboard</h1>
+        </div>
+        <nav class="flex space-x-4 items-center">
+            <a href="/dashboard" class="text-white hover:text-gray-400">Dashboard</a>
+            <a href="/plugins" class="text-white hover:text-gray-400">Plugins</a>
+            <a href="/users" class="text-white hover:text-gray-400">Users</a>
+            <a href="/settings" class="text-white hover:text-gray-400">Settings</a>
+            <a href="/logout" class="text-white hover:text-gray-400">Logout</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container mx-auto px-4 py-8">
+    <section id="overview" class="mb-8">
+        <h2 class="text-3xl font-bold mb-4">Overview</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold">Total Plugins</h3>
+                <p class="text-3xl font-bold">150</p>
+            </div>
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold">Pending Plugins</h3>
+                <p class="text-3xl font-bold">20</p>
+            </div>
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold">Total Users</h3>
+                <p class="text-3xl font-bold">500</p>
+            </div>
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold">Active Users</h3>
+                <p class="text-3xl font-bold">120</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="plugins" class="mb-8">
+        <h2 class="text-3xl font-bold mb-4">Pending Plugins</h2>
+        <table class="min-w-full bg-gray-800 text-white rounded-lg overflow-hidden">
+            <thead>
+            <tr>
+                <th class="py-2 px-4 bg-gray-700">Plugin Name</th>
+                <th class="py-2 px-4 bg-gray-700">Author</th>
+                <th class="py-2 px-4 bg-gray-700">Submission Date</th>
+                <th class="py-2 px-4 bg-gray-700">Repository Link</th>
+                <th class="py-2 px-4 bg-gray-700">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="py-2 px-4">Plugin 1</td>
+                <td class="py-2 px-4">John Doe</td>
+                <td class="py-2 px-4">2024-05-30</td>
+                <td class="py-2 px-4"><a href="https://github.com/johndoe/plugin1" class="text-blue-400 hover:underline">View Repository</a></td>
+                <td class="py-2 px-4">
+                    <button class="bg-green-600 hover:bg-green-700 text-white py-1 px-2 rounded">Approve</button>
+                    <button class="bg-red-600 hover:bg-red-700 text-white py-1 px-2 rounded">Reject</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="py-2 px-4">Plugin 2</td>
+                <td class="py-2 px-4">Jane Smith</td>
+                <td class="py-2 px-4">2024-05-29</td>
+                <td class="py-2 px-4"><a href="https://github.com/janesmith/plugin2" class="text-blue-400 hover:underline">View Repository</a></td>
+                <td class="py-2 px-4">
+                    <button class="bg-green-600 hover:bg-green-700 text-white py-1 px-2 rounded">Approve</button>
+                    <button class="bg-red-600 hover:bg-red-700 text-white py-1 px-2 rounded">Reject</button>
+                </td>
+            </tr>
+            <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </section>
+
+    <section id="users" class="mb-8">
+        <h2 class="text-3xl font-bold mb-4">Manage Users</h2>
+        <table class="min-w-full bg-gray-800 text-white rounded-lg overflow-hidden">
+            <thead>
+            <tr>
+                <th class="py-2 px-4 bg-gray-700">User Name</th>
+                <th class="py-2 px-4 bg-gray-700">Email</th>
+                <th class="py-2 px-4 bg-gray-700">Role</th>
+                <th class="py-2 px-4 bg-gray-700">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="py-2 px-4">John Doe</td>
+                <td class="py-2 px-4">john.doe@example.com</td>
+                <td class="py-2 px-4">User</td>
+                <td class="py-2 px-4">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white py-1 px-2 rounded">Promote</button>
+                    <button class="bg-red-600 hover:bg-red-700 text-white py-1 px-2 rounded">Demote</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="py-2 px-4">Jane Smith</td>
+                <td class="py-2 px-4">jane.smith@example.com</td>
+                <td class="py-2 px-4">Admin</td>
+                <td class="py-2 px-4">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white py-1 px-2 rounded">Promote</button>
+                    <button class="bg-red-600 hover:bg-red-700 text-white py-1 px-2 rounded">Demote</button>
+                </td>
+            </tr>
+            <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </section>
+
+    <section id="statistics" class="mb-8">
+        <h2 class="text-3xl font-bold mb-4">Statistics</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-4">Plugin Statistics</h3>
+                <canvas id="pluginStatsChart"></canvas>
+            </div>
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-4">User Statistics</h3>
+                <canvas id="userStatsChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section id="information" class="mb-8">
+        <h2 class="text-3xl font-bold mb-4">Information</h2>
+        <p class="text-lg">Here you can provide additional information or announcements related to the admin panel.</p>
+    </section>
+</main>
+
+<footer class="bg-gray-800 p-4 mt-8">
+    <div class="container mx-auto text-center">
+        <p class="text-white">&copy; 2024 OrdinalTeamWeb. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Plugin Statistics Chart
+    const pluginStatsCtx = document.getElementById('pluginStatsChart').getContext('2d');
+    const pluginStatsChart = new Chart(pluginStatsCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Plugin 1', 'Plugin 2', 'Plugin 3', 'Plugin 4'],
+            datasets: [{
+                label: '# of Downloads',
+                data: [150, 200, 180, 220],
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // User Statistics Chart
+    const userStatsCtx = document.getElementById('userStatsChart').getContext('2d');
+    const userStatsChart = new Chart(userStatsCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Active', 'Inactive'],
+            datasets: [{
+                label: '# of Users',
+                data: [120, 380],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+</script>
+</body>
+</html>

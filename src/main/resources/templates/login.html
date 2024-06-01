@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <title>Login - OrdinalTeamWeb</title>
+</head>
+<body class="bg-gray-900 text-white">
+<header class="bg-gray-800 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <img src="/images/icon.png" alt="Logo" class="w-10 h-10 rounded-full">
+            <h1 class="text-4xl font-bold">OrdinalTeamWeb</h1>
+        </div>
+        <nav class="flex space-x-4 items-center">
+            <a href="/" class="text-white hover:text-gray-400">Home</a>
+            <a href="/login" class="text-white hover:text-gray-400">Login</a>
+            <a href="/signup" class="ml-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">Sign Up</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container mx-auto px-4 py-8">
+    <div class="max-w-lg mx-auto bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 class="text-3xl font-bold mb-6">Login</h2>
+        <form action="/login" method="POST" class="space-y-4">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-400">Username</label>
+                <input type="text" id="username" name="username" required class="mt-1 px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-400">Password</label>
+                <input type="password" id="password" name="password" required class="mt-1 px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+            </div>
+            <div class="flex items-center justify-between">
+                <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Login</button>
+                <a href="/signup" class="text-sm text-blue-400 hover:underline">Don't have an account? Sign Up</a>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer class="bg-gray-800 p-4 mt-8">
+    <div class="container mx-auto text-center">
+        <p class="text-white">&copy; 2024 OrdinalTeamWeb. All rights reserved.</p>
+    </div>
+</footer>
+</body>
+</html>
