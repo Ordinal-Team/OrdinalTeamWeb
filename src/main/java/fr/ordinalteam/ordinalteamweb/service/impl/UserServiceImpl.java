@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User updateUserRoles(final Long userId, final Set<Role> roles) {
-        final User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        final User user = this.userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         user.setRoles(roles);
         return this.userRepository.save(user);
     }
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return response;
         }
 
-        boolean isFirstUser = this.userRepository.count() == 0;
+        final boolean isFirstUser = this.userRepository.count() == 0;
         final User user = new User();
         user.setUsername(username);
         user.setEmail(email);
@@ -105,6 +105,37 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.userRepository.save(user);
         response.setSuccess(true);
         return response;
+    }
+
+    @Override
+    public void verifyEmail(final String token) {
+        final Optional<User> userOptional = this.userRepository.findByVerificationToken(token);
+        if (userOptional.isPresent()) {
+            final User user = userOptional.get();
+            user.setEmailVerified(true);
+            user.setVerificationToken(null);
+            this.userRepository.save(user);
+        }
+    }
+
+    @Override
+    public void enableTwoFactorAuthentication(final String username) {
+        final Optional<User> userOptional = this.userRepository.findByUsername(username);
+        if (userOptional.isPresent()) {
+            final User user = userOptional.get();
+            user.setTwoFactorEnabled(true);
+            this.userRepository.save(user);
+        }
+    }
+
+    @Override
+    public void linkDiscordAccount(final String username, final String discordAccountId) {
+        final Optional<User> userOptional = this.userRepository.findByUsername(username);
+        if (userOptional.isPresent()) {
+            final User user = userOptional.get();
+            user.setDiscordAccountId(discordAccountId);
+            this.userRepository.save(user);
+        }
     }
 
     @Override

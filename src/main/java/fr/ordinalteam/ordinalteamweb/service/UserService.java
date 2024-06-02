@@ -16,4 +16,7 @@ public interface UserService {
     User updateUserRoles(final Long userId, final Set<Role> roles);
     Response registerUser(final String username, final String email, final String password, final String cPassword);
 
+    void verifyEmail(final String token);
+    void enableTwoFactorAuthentication(final String username);
+    void linkDiscordAccount(final String username, final String discordAccountId);
 }

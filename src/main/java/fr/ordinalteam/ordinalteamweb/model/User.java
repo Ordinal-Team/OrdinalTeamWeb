@@ -27,6 +27,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+    private boolean emailVerified;
+    private String verificationToken;
+    private boolean twoFactorEnabled;
+    private String discordAccountId;
 
     @PrePersist
     protected void onCreate() {
@@ -77,7 +81,39 @@ public class User {
         return this.roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(final Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isEmailVerified() {
+        return this.emailVerified;
+    }
+
+    public void setEmailVerified(final boolean emailVerified) {
+        this.emailVerified = emailVerified;
+    }
+
+    public String getVerificationToken() {
+        return this.verificationToken;
+    }
+
+    public void setVerificationToken(final String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
+    public boolean isTwoFactorEnabled() {
+        return this.twoFactorEnabled;
+    }
+
+    public void setTwoFactorEnabled(final boolean twoFactorEnabled) {
+        this.twoFactorEnabled = twoFactorEnabled;
+    }
+
+    public String getDiscordAccountId() {
+        return this.discordAccountId;
+    }
+
+    public void setDiscordAccountId(final String discordAccountId) {
+        this.discordAccountId = discordAccountId;
     }
 }
