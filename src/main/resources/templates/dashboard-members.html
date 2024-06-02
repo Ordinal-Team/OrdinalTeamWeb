@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <title>Members - OrdinalTeamWeb</title>
+    <style>
+        .sidebar {
+            min-width: 250px;
+            max-width: 250px;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex">
+<!-- Sidebar -->
+<div th:replace="fragments/dashboard-sidebar :: sidebar"></div>
+
+
+
+<!-- Main Content -->
+<div class="flex-1 p-6">
+    <h2 class="text-3xl font-bold mb-4">Members</h2>
+    <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+        <table class="min-w-full bg-gray-800 text-white">
+            <thead>
+            <tr>
+                <th class="py-2 px-4 border-b border-gray-600">Username</th>
+                <th class="py-2 px-4 border-b border-gray-600">Email</th>
+                <th class="py-2 px-4 border-b border-gray-600">Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="py-2 px-4 border-b border-gray-600">JohnDoe</td>
+                <td class="py-2 px-4 border-b border-gray-600">john@example.com</td>
+                <td class="py-2 px-4 border-b border-gray-600">Member</td>
+            </tr>
+            <tr>
+                <td class="py-2 px-4 border-b border-gray-600">JaneSmith</td>
+                <td class="py-2 px-4 border-b border-gray-600">jane@example.com</td>
+                <td class="py-2 px-4 border-b border-gray-600">Moderator</td>
+            </tr>
+            <tr>
+                <td class="py-2 px-4 border-b border-gray-600">AdminUser</td>
+                <td class="py-2 px-4 border-b border-gray-600">admin@example.com</td>
+                <td class="py-2 px-4 border-b border-gray-600">Administrator</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+</body>
+</html>

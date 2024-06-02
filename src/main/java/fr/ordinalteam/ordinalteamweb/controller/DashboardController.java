@@ -21,18 +21,58 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public String getDashboardView() {
+        if (!isAuth()) {
+            return "redirect:/login";
+        } else if (!isUserAdmin()) {
+            return "redirect:/";
+        }
+        return "dashboard";
+    }
+
+    @GetMapping("/dashboard/members")
+    public String getMembersView() {
+        if (!isAuth()) {
+            return "redirect:/login";
+        } else if (!isUserAdmin()) {
+            return "redirect:/";
+        }
+        return "dashboard-members";
+    }
+
+    @GetMapping("/dashboard/plugins")
+    public String getPluginsView() {
+        if (!isAuth()) {
+            return "redirect:/login";
+        } else if (!isUserAdmin()) {
+            return "redirect:/";
+        }
+        return "dashboard-plugins";
+    }
+
+    @GetMapping("/dashboard/settings")
+    public String getSettingsView() {
+        if (!isAuth()) {
+            return "redirect:/login";
+        } else if (!isUserAdmin()) {
+            return "redirect:/";
+        }
+        return "dashboard-settings";
+    }
+
+    private boolean isAuth() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName());
+    }
+
+    private boolean isUserAdmin() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName())) {
             final Optional<User> userOptional = this.userService.findByUsername(authentication.getName());
             if (userOptional.isPresent()) {
                 final User user = userOptional.get();
-                if (user.getRoles().stream().anyMatch(role -> role.getName() == RoleName.ADMINISTRATOR || role.getName() == RoleName.MODERATOR)) {
-                    return "dashboard";
-                }
+                return user.getRoles().stream().anyMatch(role -> role.getName() == RoleName.ADMINISTRATOR);
             }
-        } else {
-            return "redirect:/login";
         }
-        return "redirect:/";
+        return false;
     }
 }

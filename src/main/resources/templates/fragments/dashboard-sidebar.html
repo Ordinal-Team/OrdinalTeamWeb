@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="sidebar">
+    <div class="sidebar bg-gray-800 p-4">
+        <h2 class="text-2xl font-bold mb-4">Dashboard</h2>
+        <nav>
+            <ul>
+                <li class="mb-2">
+                    <a href="/dashboard" class="block px-4 py-2 text-white rounded hover:bg-gray-700">Home</a>
+                </li>
+                <li class="mb-2">
+                    <a href="/dashboard/members" class="block px-4 py-2 text-white rounded hover:bg-gray-700">Members</a>
+                </li>
+                <li class="mb-2">
+                    <a href="/dashboard/plugins" class="block px-4 py-2 text-white rounded hover:bg-gray-700">Plugins</a>
+                </li>
+                <li class="mb-2">
+                    <a href="/dashboard/settings" class="block px-4 py-2 text-white rounded hover:bg-gray-700">Settings</a>
+                </li>
+                <li class="mt-4">
+                    <a href="/perform_logout" class="block px-4 py-2 text-red-500 rounded hover:bg-red-700">Logout</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</html>

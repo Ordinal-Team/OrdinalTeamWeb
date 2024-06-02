@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <title>Plugins - OrdinalTeamWeb</title>
+    <style>
+        .sidebar {
+            min-width: 250px;
+            max-width: 250px;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex">
+<!-- Sidebar -->
+<div th:replace="fragments/dashboard-sidebar :: sidebar"></div>
+
+
+
+<!-- Main Content -->
+<div class="flex-1 p-6">
+    <h2 class="text-3xl font-bold mb-4">Plugins</h2>
+    <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+        <table class="min-w-full bg-gray-800 text-white">
+            <thead>
+            <tr>
+                <th class="py-2 px-4 border-b border-gray-600">Plugin Name</th>
+                <th class="py-2 px-4 border-b border-gray-600">Version</th>
+                <th class="py-2 px-4 border-b border-gray-600">Author</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="py-2 px-4 border-b border-gray-600">PluginOne</td>
+                <td class="py-2 px-4 border-b border-gray-600">1.0.0</td>
+                <td class="py-2 px-4 border-b border-gray-600">JohnDoe</td>
+            </tr>
+            <tr>
+                <td class="py-2 px-4 border-b border-gray-600">PluginTwo</td>
+                <td class="py-2 px-4 border-b border-gray-600">2.1.0</td>
+                <td class="py-2 px-4 border-b border-gray-600">JaneSmith</td>
+            </tr>
+            <tr>
+                <td class="py-2 px-4 border-b border-gray-600">PluginThree</td>
+                <td class="py-2 px-4 border-b border-gray-600">3.0.2</td>
+                <td class="py-2 px-4 border-b border-gray-600">AdminUser</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+</body>
+</html>

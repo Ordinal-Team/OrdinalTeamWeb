@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/tailwind.css" rel="stylesheet">
-    <title>Dashboard Home - OrdinalTeamWeb</title>
+    <title>Settings - OrdinalTeamWeb</title>
     <style>
         .sidebar {
             min-width: 250px;
@@ -13,18 +13,16 @@
     </style>
 </head>
 <body class="bg-gray-900 text-white flex">
-<!-- Sidebar -->
 <div th:replace="fragments/dashboard-sidebar :: sidebar"></div>
 
 
-<!-- Main Content -->
-<div class="flex-1 p-6">
-    <h2 class="text-3xl font-bold mb-4">Welcome to the Dashboard</h2>
-    <p class="text-gray-400">This is the home page of your dashboard.</p>
 
+<div class="flex-1 p-6">
+    <h2 class="text-3xl font-bold mb-4">Settings</h2>
+    <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+        <p class="text-gray-400">Settings content goes here...</p>
+    </div>
     <footer th:replace="~{fragments/footer :: footer}"></footer>
 </div>
-
 </body>
-
 </html>
