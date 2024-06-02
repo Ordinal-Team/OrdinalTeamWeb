@@ -4,8 +4,6 @@ import fr.ordinalteam.ordinalteamweb.dto.RegisterRequest;
 import fr.ordinalteam.ordinalteamweb.dto.Response;
 import fr.ordinalteam.ordinalteamweb.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,14 +20,18 @@ public class SignupController {
     }
 
     @GetMapping
-    public String signup() {
+    public String signup(@ModelAttribute("registerRequest") RegisterRequest registerRequest) {
         return "signup";
     }
 
-
     @PostMapping
-    public String registerUser(final @ModelAttribute("registerRequest") RegisterRequest registerRequest, final RedirectAttributes redirectAttributes) {
-        Response response = this.userService.registerUser(registerRequest.getUsername(), registerRequest.getEmail(), registerRequest.getPassword(), registerRequest.getConfirmPassword());
+    public String registerUser(final @Valid @ModelAttribute("registerRequest") RegisterRequest registerRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Validation errors occurred. Please try again.");
+            return "redirect:/signup";
+        }
+
+        final Response response = this.userService.registerUser(registerRequest.getUsername(), registerRequest.getEmail(), registerRequest.getPassword(), registerRequest.getConfirmPassword());
 
         if (!response.isSuccess()) {
             redirectAttributes.addFlashAttribute("errorMessage", response.getErrorMessage());
@@ -39,5 +41,4 @@ public class SignupController {
         redirectAttributes.addFlashAttribute("successMessage", "Registration successful! You can now login.");
         return "redirect:/login";
     }
-
 }

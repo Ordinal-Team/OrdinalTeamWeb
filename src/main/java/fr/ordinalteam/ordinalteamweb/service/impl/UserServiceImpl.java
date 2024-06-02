@@ -90,12 +90,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return response;
         }
 
+        boolean isFirstUser = this.userRepository.count() == 0;
         final User user = new User();
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(this.passwordEncoder.encode(password));
         final Set<Role> roles = new HashSet<>();
-        roles.add(this.roleRepository.findByName(RoleName.USER).orElseThrow(() -> new RuntimeException("Default role USER not found")));
+        if (isFirstUser) {
+            roles.add(this.roleRepository.findByName(RoleName.ADMINISTRATOR).orElseThrow(() -> new RuntimeException("ADMINISTRATOR role not found")));
+        } else {
+            roles.add(this.roleRepository.findByName(RoleName.USER).orElseThrow(() -> new RuntimeException("Default role USER not found")));
+        }
         user.setRoles(roles);
         this.userRepository.save(user);
         response.setSuccess(true);

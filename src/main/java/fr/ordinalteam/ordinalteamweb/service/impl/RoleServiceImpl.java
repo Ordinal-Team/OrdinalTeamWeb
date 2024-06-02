@@ -4,7 +4,6 @@ import fr.ordinalteam.ordinalteamweb.model.Role;
 import fr.ordinalteam.ordinalteamweb.model.RoleName;
 import fr.ordinalteam.ordinalteamweb.repository.RoleRepository;
 import fr.ordinalteam.ordinalteamweb.service.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -14,27 +13,30 @@ import java.util.Set;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
+
+    public RoleServiceImpl(final RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     @Override
-    public Role createRole(Role role) {
-        return roleRepository.save(role);
+    public Role createRole(final Role role) {
+        return this.roleRepository.save(role);
     }
 
     @Override
     public List<Role> findAllRoles() {
-        return roleRepository.findAll();
+        return this.roleRepository.findAll();
     }
 
     @Override
-    public Role findByName(final RoleName  name) {
-        return roleRepository.findByName(name).orElseThrow(() -> new RuntimeException("Role not found"));
+    public Role findByName(final RoleName name) {
+        return this.roleRepository.findByName(name).orElseThrow(() -> new RuntimeException("Role not found"));
     }
 
     @Override
-    public void deleteRole(Long roleId) {
-        roleRepository.deleteById(roleId);
+    public void deleteRole(final Long roleId) {
+        this.roleRepository.deleteById(roleId);
     }
 
     @Override
@@ -54,6 +56,6 @@ public class RoleServiceImpl implements RoleService {
             defaultRoles.add(new Role(RoleName.ADMINISTRATOR));
         }
 
-        return new HashSet<>(roleRepository.saveAll(defaultRoles));
+        return new HashSet<>(this.roleRepository.saveAll(defaultRoles));
     }
 }

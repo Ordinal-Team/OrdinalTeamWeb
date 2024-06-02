@@ -25,6 +25,9 @@
     <div class="max-w-lg mx-auto bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 class="text-3xl font-bold mb-6">Login</h2>
         <form action="/perform_login" method="POST" class="space-y-4">
+            <div th:if="${param.error}" class="bg-red-500 text-white p-4 rounded-lg">
+                <p>Invalid username or password. Please try again.</p>
+            </div>
             <div>
                 <label for="username" class="block text-sm font-medium text-gray-400">Username</label>
                 <input type="text" id="username" name="username" required class="mt-1 px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
