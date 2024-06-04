@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark" data-page="settings">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,16 +13,42 @@
     </style>
 </head>
 <body class="bg-gray-900 text-white flex">
-<div th:replace="fragments/dashboard-sidebar :: sidebar"></div>
+<!-- Sidebar -->
+<div class="sidebar bg-gray-900 text-white h-screen fixed top-0 left-0 z-10">
+    <div th:replace="fragments/dashboard-sidebar :: sidebar"></div>
+</div>
 
-
-
-<div class="flex-1 p-6">
+<!-- Main Content -->
+<div class="flex-1 p-6 ml-64">
     <h2 class="text-3xl font-bold mb-4">Settings</h2>
     <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
         <p class="text-gray-400">Settings content goes here...</p>
     </div>
     <footer th:replace="~{fragments/footer :: footer}"></footer>
 </div>
+<script>
+    document.querySelectorAll('.hs-accordion-toggle').forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                content.classList.add('block');
+            } else {
+                content.classList.remove('block');
+                content.classList.add('hidden');
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const page = document.documentElement.getAttribute('data-page');
+        if (page) {
+            const activeNav = document.getElementById(`nav-${page}`);
+            if (activeNav) {
+                activeNav.classList.add('bg-gray-700');
+            }
+        }
+    });
+</script>
 </body>
 </html>

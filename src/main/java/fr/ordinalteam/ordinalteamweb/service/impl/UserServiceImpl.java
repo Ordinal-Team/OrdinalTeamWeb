@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-    @Override
+    @Override 
     public void linkDiscordAccount(final String username, final String discordAccountId) {
         final Optional<User> userOptional = this.userRepository.findByUsername(username);
         if (userOptional.isPresent()) {

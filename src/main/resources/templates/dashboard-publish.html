@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" class="dark" data-page="publish">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <title>Dashboard - Publish Announcement</title>
+    <style>
+        .sidebar {
+            min-width: 250px;
+            max-width: 250px;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex">
+<!-- Sidebar -->
+<nav class="sidebar bg-gray-900 text-white border-e border-gray-800 pt-7 pb-10 overflow-y-auto">
+    <div th:replace="fragments/dashboard-sidebar :: sidebar"></div>
+</nav>
+
+<!-- Main Content -->
+<div class="flex-1 p-6">
+    <h2 class="text-3xl font-bold mb-6">Publish Announcement</h2>
+    <form action="/dashboard/announce/publish" method="post" enctype="multipart/form-data" class="space-y-6">
+        <div>
+            <label for="title" class="block text-sm font-medium text-gray-200">Title</label>
+            <input type="text" id="title" name="title" class="mt-1 block w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+        </div>
+
+        <div>
+            <label for="description" class="block text-sm font-medium text-gray-200">Description</label>
+            <textarea id="description" name="description" rows="5" class="mt-1 block w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></textarea>
+        </div>
+
+        <div>
+            <label for="category" class="block text-sm font-medium text-gray-200">Category</label>
+            <select id="category" name="category" class="mt-1 block w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                <option value="">Select a category</option>
+                <option value="news">News</option>
+                <option value="updates">Updates</option>
+                <option value="events">Events</option>
+            </select>
+        </div>
+
+        <!-- !smth for later
+        <div>
+            <label for="images" class="block text-sm font-medium text-gray-200">Upload Images</label>
+            <input type="file" id="images" name="images[]" multiple class="mt-1 block w-full text-white bg-gray-800 border border-gray-700 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+        </div>
+    -->
+        <div class="flex justify-end">
+            <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-sm">Publish</button>
+        </div>
+    </form>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+</body>
+</html>

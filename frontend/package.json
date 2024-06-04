@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:css": "tailwindcss -i ./src/styles/tailwind.css -o ../src/main/resources/static/css/tailwind.css"
+    "build:css": "tailwindcss -i ./src/styles/tailwind.css -o ../src/main/resources/static/css/tailwind.css",
+    "build": "npm run build:css",
+    "clean": "rm -rf ../src/main/resources/static/css/tailwind.css"
   },
   "keywords": [],
   "author": "Arinonia",

@@ -59,6 +59,16 @@ public class DashboardController {
         return "dashboard-settings";
     }
 
+    @GetMapping("/dashboard/announce/create")
+    public String getAnnounceView() {
+        if (!isAuth()) {
+            return "redirect:/login";
+        } else if (!isUserAdmin()) {
+            return "redirect:/";
+        }
+        return "dashboard-publish";
+    }
+
     private boolean isAuth() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName());
