@@ -21,30 +21,46 @@
 <!-- Main Content -->
 <div class="flex-1 p-6 ml-64">
     <h2 class="text-3xl font-bold mb-4">Members</h2>
-    <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
-        <table class="min-w-full bg-gray-800 text-white">
-            <thead>
+    <div class="bg-gray-800 p-4 rounded-lg shadow-lg overflow-x-auto">
+        <table class="table-fixed min-w-full bg-gray-800 text-white">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th class="py-2 px-4 border-b border-gray-600">Username</th>
-                <th class="py-2 px-4 border-b border-gray-600">Email</th>
-                <th class="py-2 px-4 border-b border-gray-600">Role</th>
+                <th scope="col" class="px-6 py-3">Username</th>
+                <th scope="col" class="px-6 py-3">Email</th>
+                <th scope="col" class="px-6 py-3">Role</th>
+                <th scope="col" class="px-6 py-3">Created At</th>
+                <th scope="col" class="px-6 py-3">Email Verified</th>
+                <th scope="col" class="px-6 py-3">2FA Enabled</th>
+                <th scope="col" class="px-6 py-3">Discord Account ID</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td class="py-2 px-4 border-b border-gray-600">JohnDoe</td>
-                <td class="py-2 px-4 border-b border-gray-600">john@example.com</td>
-                <td class="py-2 px-4 border-b border-gray-600">Member</td>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">JohnDoe</th>
+                <td class="px-6 py-4">john@example.com</td>
+                <td class="px-6 py-4">Member</td>
+                <td class="px-6 py-4">2023-06-01 12:34</td>
+                <td class="px-6 py-4">Yes</td>
+                <td class="px-6 py-4">No</td>
+                <td class="px-6 py-4">1234567890</td>
             </tr>
-            <tr>
-                <td class="py-2 px-4 border-b border-gray-600">JaneSmith</td>
-                <td class="py-2 px-4 border-b border-gray-600">jane@example.com</td>
-                <td class="py-2 px-4 border-b border-gray-600">Moderator</td>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">JaneSmith</th>
+                <td class="px-6 py-4">jane@example.com</td>
+                <td class="px-6 py-4">Moderator</td>
+                <td class="px-6 py-4">2023-05-15 09:21</td>
+                <td class="px-6 py-4">No</td>
+                <td class="px-6 py-4">Yes</td>
+                <td class="px-6 py-4">0987654321</td>
             </tr>
-            <tr>
-                <td class="py-2 px-4 border-b border-gray-600">AdminUser</td>
-                <td class="py-2 px-4 border-b border-gray-600">admin@example.com</td>
-                <td class="py-2 px-4 border-b border-gray-600">Administrator</td>
+            <tr class="bg-white dark:bg-gray-800">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">AdminUser</th>
+                <td class="px-6 py-4">admin@example.com</td>
+                <td class="px-6 py-4">Administrator</td>
+                <td class="px-6 py-4">2023-01-01 00:00</td>
+                <td class="px-6 py-4">Yes</td>
+                <td class="px-6 py-4">Yes</td>
+                <td class="px-6 py-4">1122334455</td>
             </tr>
             </tbody>
         </table>
