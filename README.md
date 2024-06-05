@@ -67,6 +67,11 @@ The project is in its initial development phase. More features and improvements 
     npm start
     ```
 
+## Accessing the Site
+
+The site is accessible at [http://185.229.220.75:8090/](http://185.229.220.75:8090/).
+
+
 ## Contributing
 
 Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.
