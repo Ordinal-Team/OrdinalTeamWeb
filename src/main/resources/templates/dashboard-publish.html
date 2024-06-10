@@ -24,21 +24,19 @@
     <form action="/dashboard/announce/publish" method="post" enctype="multipart/form-data" class="space-y-6">
         <div>
             <label for="title" class="block text-sm font-medium text-gray-200">Title</label>
-            <input type="text" id="title" name="title" class="mt-1 block w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            <input type="text" id="title" name="title" class="mt-1 block w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
         </div>
 
         <div>
             <label for="description" class="block text-sm font-medium text-gray-200">Description</label>
-            <textarea id="description" name="description" rows="5" class="mt-1 block w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></textarea>
+            <textarea id="description" name="description" rows="5" class="mt-1 block w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required></textarea>
         </div>
 
         <div>
             <label for="category" class="block text-sm font-medium text-gray-200">Category</label>
-            <select id="category" name="category" class="mt-1 block w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            <select id="category" name="categoryId" class="mt-1 block w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
                 <option value="">Select a category</option>
-                <option value="news">News</option>
-                <option value="updates">Updates</option>
-                <option value="events">Events</option>
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
             </select>
         </div>
 
@@ -47,23 +45,35 @@
             <input type="file" id="images" name="images[]" multiple class="mt-1 block w-full text-white bg-gray-800 border border-gray-700 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <label for="start_date" class="block text-sm font-medium text-gray-200">Start Date</label>
-                <input type="date" id="start_date" name="start_date" class="mt-1 block w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-            </div>
-
-            <div>
-                <label for="end_date" class="block text-sm font-medium text-gray-200">End Date</label>
-                <input type="date" id="end_date" name="end_date" class="mt-1 block w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-            </div>
-        </div>
-
         <div class="flex justify-end">
             <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-sm">Publish</button>
         </div>
     </form>
     <footer th:replace="~{fragments/footer :: footer}"></footer>
 </div>
+<script>
+    document.querySelectorAll('.hs-accordion-toggle').forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                content.classList.add('block');
+            } else {
+                content.classList.remove('block');
+                content.classList.add('hidden');
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const page = document.documentElement.getAttribute('data-page');
+        if (page) {
+            const activeNav = document.getElementById(`nav-${page}`);
+            if (activeNav) {
+                activeNav.classList.add('bg-gray-700');
+            }
+        }
+    });
+</script>
 </body>
 </html>

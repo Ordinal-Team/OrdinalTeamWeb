@@ -7,6 +7,8 @@ import fr.ordinalteam.ordinalteamweb.model.User;
 import fr.ordinalteam.ordinalteamweb.repository.RoleRepository;
 import fr.ordinalteam.ordinalteamweb.repository.UserRepository;
 import fr.ordinalteam.ordinalteamweb.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -106,6 +108,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         response.setSuccess(true);
         return response;
     }
+
+    @Override
+    public User getCurrentUser() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName())) {
+            return userRepository.findByUsername(authentication.getName()).orElse(null);
+        }
+        return null;    }
 
     @Override
     public void verifyEmail(final String token) {

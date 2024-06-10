@@ -15,6 +15,7 @@ public interface UserService {
     void deleteUser(final Long userId);
     User updateUserRoles(final Long userId, final Set<Role> roles);
     Response registerUser(final String username, final String email, final String password, final String cPassword);
+    User getCurrentUser();
 
     void verifyEmail(final String token);
     void enableTwoFactorAuthentication(final String username);

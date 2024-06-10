@@ -1,4 +1,4 @@
-package fr.ordinalteam.ordinalteamweb.controller;
+package fr.ordinalteam.ordinalteamweb.controller.admin;
 
 import fr.ordinalteam.ordinalteamweb.model.RoleName;
 import fr.ordinalteam.ordinalteamweb.model.User;
@@ -57,16 +57,6 @@ public class DashboardController {
             return "redirect:/";
         }
         return "dashboard-settings";
-    }
-
-    @GetMapping("/dashboard/announce/create")
-    public String getAnnounceView() {
-        if (!isAuth()) {
-            return "redirect:/login";
-        } else if (!isUserAdmin()) {
-            return "redirect:/";
-        }
-        return "dashboard-publish";
     }
 
     private boolean isAuth() {

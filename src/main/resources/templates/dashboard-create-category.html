@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" class="dark" data-page="create-category">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <title>Dashboard - Create Category</title>
+    <style>
+        .sidebar {
+            min-width: 250px;
+            max-width: 250px;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex">
+<!-- Sidebar -->
+<div class="sidebar bg-gray-900 text-white h-screen fixed top-0 left-0 z-10">
+    <div th:replace="~{fragments/dashboard-sidebar :: sidebar}"></div>
+</div>
+
+<!-- Main Content -->
+<div class="flex-1 p-6 ml-64">
+    <h2 class="text-3xl font-bold mb-6">Create Category</h2>
+    <form action="/dashboard/announce/create-category" method="post" class="space-y-6" th:object="${categoryDTO}">
+        <div>
+            <label for="name" class="block text-sm font-medium text-gray-200">Category Name</label>
+            <input type="text" id="name" th:field="*{name}" class="mt-1 block w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+        </div>
+
+        <div>
+            <label for="description" class="block text-sm font-medium text-gray-200">Category Description</label>
+            <textarea id="description" th:field="*{description}" rows="5" class="mt-1 block w-full bg-gray-800 border border-gray-700 text-white rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></textarea>
+        </div>
+
+        <div class="flex justify-end">
+            <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-sm">Create Category</button>
+        </div>
+    </form>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+<script>
+    document.querySelectorAll('.hs-accordion-toggle').forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                content.classList.add('block');
+            } else {
+                content.classList.remove('block');
+                content.classList.add('hidden');
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const page = document.documentElement.getAttribute('data-page');
+        if (page) {
+            const activeNav = document.getElementById(`nav-${page}`);
+            if (activeNav) {
+                activeNav.classList.add('bg-gray-700');
+            }
+        }
+    });
+</script>
+</body>
+</html>

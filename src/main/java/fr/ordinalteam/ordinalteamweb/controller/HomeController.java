@@ -1,6 +1,7 @@
 package fr.ordinalteam.ordinalteamweb.controller;
 
 import fr.ordinalteam.ordinalteamweb.model.User;
+import fr.ordinalteam.ordinalteamweb.service.AnnouncementService;
 import fr.ordinalteam.ordinalteamweb.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +19,11 @@ public class HomeController {
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     private final UserService userService;
+    private final AnnouncementService announcementService;
 
-    public HomeController(final UserService userService) {
+    public HomeController(final UserService userService, final AnnouncementService announcementService) {
         this.userService = userService;
+        this.announcementService = announcementService;
     }
 
     @GetMapping("/")
@@ -45,6 +48,7 @@ public class HomeController {
             logger.info("User is not authenticated or is anonymous");
             model.addAttribute("user", null);
         }
+        model.addAttribute("announcements", this.announcementService.findTop3ByOrderByCreatedAtDesc());
 
         return "index";
     }
