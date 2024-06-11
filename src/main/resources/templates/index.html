@@ -67,7 +67,7 @@
                 <div class="flex items-center text-sm text-gray-500 space-x-4">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 text-gray-400 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16v16H4z"></path></svg>
-                        <span th:text="'Category: ' + ${announcement.category.name}"></span>
+                        <span th:text="'Category: ' + ${announcement.category != null ? announcement.category.name : 'Unknown'}"></span>
                     </div>
                     <div class="flex items-center">
                         <svg class="w-5 h-5 text-gray-400 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
@@ -79,13 +79,10 @@
                         </svg>
                         <span th:text="'Posted on: ' + ${announcement.createdAt}"></span>
                     </div>
-
                 </div>
             </a>
         </div>
     </section>
-
-
 
     <section id="section1" class="my-8">
         <h2 class="text-3xl font-bold mb-4">Featured Plugins</h2>

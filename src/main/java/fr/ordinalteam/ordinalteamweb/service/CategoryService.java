@@ -10,4 +10,6 @@ public interface CategoryService {
     Optional<Category> getCategoryById(final Long id);
     Category saveCategory(final Category category);
     void initializeDefaultCategories();
+    void deleteCategory(final Long id);
+
 }

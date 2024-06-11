@@ -9,15 +9,21 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface UserService {
-    User saveUser(final User user);
-    Optional<User> findByUsername(final String username);
+    User saveUser(User user);
+    Optional<User> findByUsername(String username);
     List<User> findAllUsers();
-    void deleteUser(final Long userId);
-    User updateUserRoles(final Long userId, final Set<Role> roles);
-    Response registerUser(final String username, final String email, final String password, final String cPassword);
+    void deleteUser(Long userId);
+    User updateUserRoles(Long userId, Set<Role> roles);
+    Response registerUser(String username, String email, String password, String cPassword);
     User getCurrentUser();
+    void verifyEmail(String token);
+    void enableTwoFactorAuthentication(String username);
+    void linkDiscordAccount(String username, String discordAccountId);
+    List<User> findAll();
+    User findById(Long id);
 
-    void verifyEmail(final String token);
-    void enableTwoFactorAuthentication(final String username);
-    void linkDiscordAccount(final String username, final String discordAccountId);
+    // New methods for updating user details
+    void updateEmailVerified(Long userId, boolean status);
+    void updateTwoFactorEnabled(Long userId, boolean status);
+    void updateUserDetails(User user);
 }

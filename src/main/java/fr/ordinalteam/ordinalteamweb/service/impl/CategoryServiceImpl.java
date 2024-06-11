@@ -1,6 +1,8 @@
 package fr.ordinalteam.ordinalteamweb.service.impl;
 
+import fr.ordinalteam.ordinalteamweb.model.Announcement;
 import fr.ordinalteam.ordinalteamweb.model.Category;
+import fr.ordinalteam.ordinalteamweb.repository.AnnouncementRepository;
 import fr.ordinalteam.ordinalteamweb.repository.CategoryRepository;
 import fr.ordinalteam.ordinalteamweb.service.CategoryService;
 import org.springframework.stereotype.Service;
@@ -12,9 +14,11 @@ import java.util.Optional;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final AnnouncementRepository announcementRepository;
 
-    public CategoryServiceImpl(final CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(final CategoryRepository categoryRepository, final AnnouncementRepository announcementRepository) {
         this.categoryRepository = categoryRepository;
+        this.announcementRepository = announcementRepository;
     }
 
     @Override
@@ -50,6 +54,22 @@ public class CategoryServiceImpl implements CategoryService {
             this.categoryRepository.save(devBlogCategory);
             this.categoryRepository.save(updatesCategory);
             this.categoryRepository.save(announceCategory);
+        }
+    }
+
+    @Override
+    public void deleteCategory(final Long id) {
+        final Optional<Category> categoryOptional = this.categoryRepository.findById(id);
+        if (categoryOptional.isPresent()) {
+            Category category = categoryOptional.get();
+            List<Announcement> announcements = this.announcementRepository.findAllByCategory(category);
+            for (Announcement announcement : announcements) {
+                announcement.setCategory(null);
+                this.announcementRepository.save(announcement);
+            }
+            this.categoryRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("Category not found");
         }
     }
 }

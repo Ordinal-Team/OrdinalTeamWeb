@@ -154,4 +154,42 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .map(user -> new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>()))
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
+
+    @Override
+    public List<User> findAll() {
+        return this.userRepository.findAll();
+    }
+
+    public User findById(final Long id) {
+        return this.userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void updateEmailVerified(final Long userId, final boolean status) {
+        final User user = findById(userId);
+        if (user != null) {
+            user.setEmailVerified(status);
+            this.userRepository.save(user);
+        }
+    }
+
+    @Override
+    public void updateTwoFactorEnabled(final Long userId, final boolean status) {
+        final User user = findById(userId);
+        if (user != null) {
+            user.setTwoFactorEnabled(status);
+            this.userRepository.save(user);
+        }
+    }
+
+    @Override
+    public void updateUserDetails(final User user) {
+        final User existingUser = findById(user.getId());
+        if (existingUser != null) {
+            existingUser.setUsername(user.getUsername());
+            existingUser.setEmail(user.getEmail());
+            existingUser.setDiscordAccountId(user.getDiscordAccountId());
+            this.userRepository.save(existingUser);
+        }
+    }
 }

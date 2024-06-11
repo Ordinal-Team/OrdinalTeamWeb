@@ -11,5 +11,7 @@ public interface AnnouncementService {
     Announcement saveAnnouncement(final Announcement announcement);
     void deleteAnnouncement(final Long id);
     List<Announcement> findTop3ByOrderByCreatedAtDesc();
+    List<Announcement> findAll();
+
 
 }

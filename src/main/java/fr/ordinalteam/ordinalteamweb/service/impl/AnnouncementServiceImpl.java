@@ -43,4 +43,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     public List<Announcement> findTop3ByOrderByCreatedAtDesc() {
         return announcementRepository.findTop3ByOrderByCreatedAtDesc();
     }
+
+    @Override
+    public List<Announcement> findAll() {
+        return this.announcementRepository.findAll();
+    }
 }

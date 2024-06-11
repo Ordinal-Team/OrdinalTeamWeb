@@ -32,35 +32,51 @@
                 <th scope="col" class="px-6 py-3">Email Verified</th>
                 <th scope="col" class="px-6 py-3">2FA Enabled</th>
                 <th scope="col" class="px-6 py-3">Discord Account ID</th>
+                <th scope="col" class="px-6 py-3">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">JohnDoe</th>
-                <td class="px-6 py-4">john@example.com</td>
-                <td class="px-6 py-4">Member</td>
-                <td class="px-6 py-4">2023-06-01 12:34</td>
-                <td class="px-6 py-4">Yes</td>
-                <td class="px-6 py-4">No</td>
-                <td class="px-6 py-4">1234567890</td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">JaneSmith</th>
-                <td class="px-6 py-4">jane@example.com</td>
-                <td class="px-6 py-4">Moderator</td>
-                <td class="px-6 py-4">2023-05-15 09:21</td>
-                <td class="px-6 py-4">No</td>
-                <td class="px-6 py-4">Yes</td>
-                <td class="px-6 py-4">0987654321</td>
-            </tr>
-            <tr class="bg-white dark:bg-gray-800">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">AdminUser</th>
-                <td class="px-6 py-4">admin@example.com</td>
-                <td class="px-6 py-4">Administrator</td>
-                <td class="px-6 py-4">2023-01-01 00:00</td>
-                <td class="px-6 py-4">Yes</td>
-                <td class="px-6 py-4">Yes</td>
-                <td class="px-6 py-4">1122334455</td>
+            <tr th:each="user : ${users}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <input type="text" th:value="${user.username}" readonly class="bg-transparent border-none focus:ring-0 focus:outline-none">
+                </th>
+                <td class="px-6 py-4">
+                    <input type="email" th:value="${user.email}" readonly class="bg-transparent border-none focus:ring-0 focus:outline-none">
+                </td>
+                <td class="px-6 py-4">
+                    <span th:text="${user.roles.stream().map(r -> r.name()).collect(Collectors.joining(', '))}"></span>
+                </td>
+                <td class="px-6 py-4">
+                    <span th:text="${user.createdAt}"></span>
+                </td>
+                <td class="px-6 py-4">
+                    <form th:action="@{/dashboard/members/toggle-email-verified}" method="post">
+                        <input type="hidden" name="id" th:value="${user.id}">
+                        <input type="hidden" name="status" th:value="!${user.emailVerified}">
+                        <button type="submit" class="px-2 py-1 text-sm rounded"
+                                th:text="${user.emailVerified} ? 'Disable' : 'Enable'"></button>
+                    </form>
+                </td>
+                <td class="px-6 py-4">
+                    <form th:action="@{/dashboard/members/toggle-two-factor}" method="post">
+                        <input type="hidden" name="id" th:value="${user.id}">
+                        <input type="hidden" name="status" th:value="!${user.twoFactorEnabled}">
+                        <button type="submit" class="px-2 py-1 text-sm rounded"
+                                th:text="${user.twoFactorEnabled} ? 'Disable' : 'Enable'"></button>
+                    </form>
+                </td>
+                <td class="px-6 py-4">
+                    <input type="text" th:value="${user.discordAccountId}" readonly class="bg-transparent border-none focus:ring-0 focus:outline-none">
+                </td>
+                <td class="px-6 py-4">
+                    <form th:action="@{/dashboard/members/edit}" method="post">
+                        <input type="hidden" name="id" th:value="${user.id}">
+                        <input type="text" name="username" th:value="${user.username}" class="bg-gray-800 text-white rounded px-2 py-1">
+                        <input type="email" name="email" th:value="${user.email}" class="bg-gray-800 text-white rounded px-2 py-1">
+                        <input type="text" name="discordAccountId" th:value="${user.discordAccountId}" class="bg-gray-800 text-white rounded px-2 py-1">
+                        <button type="submit" class="px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded">Save</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
