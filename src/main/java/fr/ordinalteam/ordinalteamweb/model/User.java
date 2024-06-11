@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -27,10 +28,14 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+
     private boolean emailVerified;
     private String verificationToken;
     private boolean twoFactorEnabled;
     private String discordAccountId;
+
+    @Transient
+    private String rolesString;
 
     @PrePersist
     protected void onCreate() {
@@ -115,5 +120,13 @@ public class User {
 
     public void setDiscordAccountId(final String discordAccountId) {
         this.discordAccountId = discordAccountId;
+    }
+
+    public String getRolesString() {
+        return this.rolesString;
+    }
+
+    public void setRolesString(final String rolesString) {
+        this.rolesString = rolesString;
     }
 }

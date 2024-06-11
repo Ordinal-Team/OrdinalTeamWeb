@@ -1,5 +1,6 @@
 package fr.ordinalteam.ordinalteamweb.controller.admin;
 
+import fr.ordinalteam.ordinalteamweb.model.Role;
 import fr.ordinalteam.ordinalteamweb.model.RoleName;
 import fr.ordinalteam.ordinalteamweb.model.User;
 import fr.ordinalteam.ordinalteamweb.service.UserService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class DashboardController {
@@ -41,9 +43,17 @@ public class DashboardController {
             return "redirect:/";
         }
         List<User> users = this.userService.findAll();
+        for (User user : users) {
+            String roles = user.getRoles().stream()
+                    .map(role -> role.getName().name())
+                    .collect(Collectors.joining(", "));
+            user.setRolesString(roles);
+        }
+
         model.addAttribute("users", users);
         return "dashboard-members";
     }
+
 
     @PostMapping("/dashboard/members/edit")
     public String editUser(final User user) {
@@ -105,15 +115,17 @@ public class DashboardController {
         return authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName());
     }
 
+    //! [WARN] DUPLICATED CODE
     private boolean isUserAdmin() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName())) {
             final Optional<User> userOptional = this.userService.findByUsername(authentication.getName());
             if (userOptional.isPresent()) {
                 final User user = userOptional.get();
-                return user.getRoles().stream().anyMatch(role -> role.getName() == RoleName.ADMINISTRATOR);
+                return user.getRoles().stream().anyMatch(role -> role.getName().equals(RoleName.ADMINISTRATOR));
             }
         }
         return false;
     }
+
 }

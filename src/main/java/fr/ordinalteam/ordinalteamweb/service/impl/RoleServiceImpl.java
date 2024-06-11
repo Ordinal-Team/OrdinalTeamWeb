@@ -44,18 +44,27 @@ public class RoleServiceImpl implements RoleService {
         final Set<Role> defaultRoles = new HashSet<>();
 
         if (!this.roleRepository.existsByName(RoleName.USER)) {
-            defaultRoles.add(new Role(RoleName.USER));
+            Role userRole = new Role();
+            userRole.setName(RoleName.USER);
+            defaultRoles.add(userRole);
         }
         if (!this.roleRepository.existsByName(RoleName.BOOSTER)) {
-            defaultRoles.add(new Role(RoleName.BOOSTER));
+            Role boosterRole = new Role();
+            boosterRole.setName(RoleName.BOOSTER);
+            defaultRoles.add(boosterRole);
         }
         if (!this.roleRepository.existsByName(RoleName.MODERATOR)) {
-            defaultRoles.add(new Role(RoleName.MODERATOR));
+            Role moderatorRole = new Role();
+            moderatorRole.setName(RoleName.MODERATOR);
+            defaultRoles.add(moderatorRole);
         }
         if (!this.roleRepository.existsByName(RoleName.ADMINISTRATOR)) {
-            defaultRoles.add(new Role(RoleName.ADMINISTRATOR));
+            Role adminRole = new Role();
+            adminRole.setName(RoleName.ADMINISTRATOR);
+            defaultRoles.add(adminRole);
         }
 
         return new HashSet<>(this.roleRepository.saveAll(defaultRoles));
     }
+
 }

@@ -153,13 +153,14 @@ public class AnnouncementController {
                 && !"anonymousUser".equals(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
+    //! [WARN] DUPLICATED CODE
     private boolean isUserAdmin() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName())) {
             final Optional<User> userOptional = this.userService.findByUsername(authentication.getName());
             if (userOptional.isPresent()) {
-                User user = userOptional.get();
-                return user.getRoles().stream().anyMatch(role -> role.getName() == RoleName.ADMINISTRATOR);
+                final User user = userOptional.get();
+                return user.getRoles().stream().anyMatch(role -> role.getName().equals(RoleName.ADMINISTRATOR));
             }
         }
         return false;
